@@ -36,7 +36,7 @@ module.exports = async function handler(req, res) {
     });
 
     const data = await new Promise((resolve, reject) => {
-      const path = '/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey;
+      const path = '/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey;
       const options = {
         hostname: 'generativelanguage.googleapis.com',
         path: path,
