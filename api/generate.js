@@ -13,7 +13,6 @@ module.exports = async function handler(req, res) {
 
   try {
     const { content, numQuestions = 10, difficulty = 'medio' } = req.body;
-
     if (!content || !Array.isArray(content) || content.length === 0) {
       return res.status(400).json({ error: 'No hay contenido para generar el test.' });
     }
@@ -22,12 +21,12 @@ module.exports = async function handler(req, res) {
 
     const parts = [...content, {
       type: 'text',
-      text: 'Basandote en el contenido anterior, genera exactamente ' + numQuestions + ' preguntas de opcion multiple con dificultad ' + (diffMap[difficulty] || 'medio') + '.\n\nRESPONDE UNICAMENTE con este JSON exacto, sin texto adicional:\n{"topic":"nombre del tema detectado","questions":[{"id":1,"question":"texto de la pregunta","options":["A) opcion A","B) opcion B","C) opcion C","D) opcion D"],"correct":0,"explanation":"explicacion breve de por que esa es la correcta"}]}\n\nEl campo correct es el indice 0-3 de la opcion correcta.'
+      text: 'Basandote en el contenido anterior, haz dos cosas:\n\n1. Extrae entre 4 y 6 puntos clave del tema para estudiar (frases cortas y claras).\n2. Genera exactamente ' + numQuestions + ' preguntas de opcion multiple con dificultad ' + (diffMap[difficulty] || 'medio') + '.\n\nRESPONDE UNICAMENTE con este JSON exacto, sin texto adicional:\n{"topic":"nombre del tema","keyPoints":["punto 1","punto 2","punto 3","punto 4"],"questions":[{"id":1,"question":"texto de la pregunta","options":["A) opcion A","B) opcion B","C) opcion C","D) opcion D"],"correct":0,"explanation":"explicacion breve"}]}\n\nEl campo correct es el indice 0-3 de la opcion correcta.'
     }];
 
     const body = JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 4000,
+      max_tokens: 8000,
       messages: [{ role: 'user', content: parts }]
     });
 
@@ -43,7 +42,6 @@ module.exports = async function handler(req, res) {
           'Content-Length': Buffer.byteLength(body)
         }
       };
-
       const r = https.request(options, (resp) => {
         let raw = '';
         resp.on('data', chunk => raw += chunk);
@@ -52,7 +50,6 @@ module.exports = async function handler(req, res) {
           catch (e) { reject(new Error('Respuesta invalida de la API')); }
         });
       });
-
       r.on('error', reject);
       r.write(body);
       r.end();
@@ -75,4 +72,5 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: err.message || 'Error al generar el test.' });
   }
 };
+
 
