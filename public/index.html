@@ -10,13 +10,14 @@
 </head>
 <body>
 
+  <!-- SCREEN 1: LANDING -->
   <section id="screen-landing" class="screen active">
     <nav class="navbar">
       <div class="logo">
-        <span class="logo-icon">&#9670;</span>
+        <span class="logo-icon">◆</span>
         <span class="logo-text">Practica tu <strong>Test</strong></span>
       </div>
-      <div class="usage-badge" id="usageBadge">&#9889; <span id="usageCount">5</span> tests hoy</div>
+      <div class="usage-badge" id="usageBadge">⚡ <span id="usageCount">5</span> tests hoy</div>
     </nav>
     <div class="landing-content">
       <div class="badge">Generado con IA</div>
@@ -26,47 +27,55 @@
       </h1>
       <p class="hero-subtitle">
         Escribe un tema, pega tus apuntes o sube un archivo.<br />
-        La IA genera tu resumen y test personalizado en segundos.
+        La IA genera preguntas variadas y adaptadas a ti en segundos.
       </p>
       <button class="btn-primary" onclick="goTo('screen-input')">
         Crear mi test
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
       <div class="features">
-        <div class="feature-chip">Imagenes</div>
+        <div class="feature-chip">Imágenes</div>
         <div class="feature-chip">Archivos TXT</div>
         <div class="feature-chip">Texto libre</div>
         <div class="feature-chip">Hasta 50 preguntas</div>
+        <div class="feature-chip">6 tipos de preguntas</div>
         <div class="feature-chip">Temporizador</div>
+        <div class="feature-chip">Feedback IA</div>
       </div>
     </div>
   </section>
 
+  <!-- SCREEN 2: INPUT -->
   <section id="screen-input" class="screen">
     <nav class="navbar">
       <div class="logo" onclick="goTo('screen-landing')" style="cursor:pointer">
-        <span class="logo-icon">&#9670;</span>
+        <span class="logo-icon">◆</span>
         <span class="logo-text">Practica tu <strong>Test</strong></span>
       </div>
-      <button class="btn-ghost" onclick="goTo('screen-landing')">&larr; Inicio</button>
+      <button class="btn-ghost" onclick="goTo('screen-landing')">← Inicio</button>
     </nav>
     <div class="input-content">
-      <h2 class="section-title">Sobre que quieres<br />practicar hoy?</h2>
+      <h2 class="section-title">¿Sobre qué quieres<br />practicar hoy?</h2>
+
       <div class="upload-zone" id="uploadZone" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('fileInput').click()">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         <p class="upload-text">Arrastra archivos o <span class="upload-link">elige uno</span></p>
-        <p class="upload-hint">Imagenes y archivos TXT</p>
+        <p class="upload-hint">Imágenes y archivos TXT</p>
         <input type="file" id="fileInput" multiple accept="image/*,.txt" onchange="handleFiles(this.files)" hidden />
       </div>
+
       <div id="filePreviews" class="file-previews hidden"></div>
+
       <div class="divider"><span>o escribe el contenido</span></div>
+
       <div class="textarea-wrapper">
-        <textarea id="contentText" class="content-textarea" placeholder="Escribe el tema o pega tus apuntes aqui..." rows="6"></textarea>
+        <textarea id="contentText" class="content-textarea" placeholder="Escribe el tema o pega tus apuntes aquí..." rows="6"></textarea>
         <span class="char-count" id="charCount">0 caracteres</span>
       </div>
+
       <div class="options-row">
         <div class="option-group">
-          <label>Numero de preguntas</label>
+          <label>Número de preguntas</label>
           <div class="option-pills" id="numQuestions">
             <button class="pill" data-value="5">5</button>
             <button class="pill active" data-value="10">10</button>
@@ -79,17 +88,18 @@
         <div class="option-group">
           <label>Dificultad</label>
           <div class="option-pills" id="difficulty">
-            <button class="pill" data-value="facil">Facil</button>
+            <button class="pill" data-value="facil">Fácil</button>
             <button class="pill active" data-value="medio">Medio</button>
-            <button class="pill" data-value="dificil">Dificil</button>
+            <button class="pill" data-value="dificil">Difícil</button>
           </div>
         </div>
       </div>
+
       <div class="timer-option">
         <div class="timer-toggle-row">
           <div>
             <p class="timer-label">Temporizador</p>
-            <p class="timer-desc">Pon un limite de tiempo al test</p>
+            <p class="timer-desc">Pon un límite de tiempo al test</p>
           </div>
           <label class="toggle">
             <input type="checkbox" id="timerToggle" onchange="toggleTimer()" />
@@ -103,9 +113,70 @@
             <button class="pill" data-value="15">15 min</button>
             <button class="pill" data-value="20">20 min</button>
             <button class="pill" data-value="30">30 min</button>
+            <button class="pill" data-value="45">45 min</button>
+            <button class="pill" data-value="60">60 min</button>
           </div>
         </div>
       </div>
+
+      <button class="btn-primary btn-full" onclick="goToContext()">
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 3: CONTEXT -->
+  <section id="screen-context" class="screen">
+    <nav class="navbar">
+      <div class="logo" onclick="goTo('screen-input')" style="cursor:pointer">
+        <span class="logo-icon">◆</span>
+        <span class="logo-text">Practica tu <strong>Test</strong></span>
+      </div>
+      <button class="btn-ghost" onclick="goTo('screen-input')">← Atrás</button>
+    </nav>
+    <div class="context-content">
+      <h2 class="section-title">Cuéntame más<br />sobre tu examen</h2>
+      <p class="context-desc">Esto permite generar preguntas mucho más precisas y adaptadas a lo que necesitas.</p>
+
+      <div class="context-section">
+        <label class="context-label">Idioma del test</label>
+        <div class="option-pills" id="contextLanguage">
+          <button class="pill active" data-value="Auto">Auto-detectar</button>
+          <button class="pill" data-value="Español">Español</button>
+          <button class="pill" data-value="English">English</button>
+          <button class="pill" data-value="Français">Français</button>
+        </div>
+      </div>
+
+      <div class="context-section">
+        <label class="context-label">Tipo de examen</label>
+        <div class="option-pills" id="contextExamType">
+          <button class="pill active" data-value="academico">Académico</button>
+          <button class="pill" data-value="certificacion">Certificación</button>
+          <button class="pill" data-value="idiomas">Idiomas</button>
+          <button class="pill" data-value="matematicas">Matemáticas</button>
+          <button class="pill" data-value="oposiciones">Oposiciones</button>
+        </div>
+      </div>
+
+      <div class="context-section">
+        <label class="context-label">Tipos de preguntas <span class="context-label-hint">(selecciona los que quieras)</span></label>
+        <div class="qtype-chips" id="qtypeChips">
+          <button class="qtype-chip active" data-value="multiple_choice">Selección múltiple</button>
+          <button class="qtype-chip" data-value="true_false">Verdadero / Falso</button>
+          <button class="qtype-chip" data-value="fill_blank">Completar espacios</button>
+          <button class="qtype-chip" data-value="ordering">Ordenar elementos</button>
+          <button class="qtype-chip" data-value="essay">Respuesta abierta</button>
+          <button class="qtype-chip" data-value="math">Matemático</button>
+        </div>
+      </div>
+
+      <div class="context-section">
+        <label class="context-label">Enfoque específico <span class="context-label-hint">(opcional)</span></label>
+        <textarea id="contextNotes" class="context-textarea" placeholder="Ej: enfócate en phrasal verbs, solo preguntas del capítulo 3, simula un examen tipo MIR..." rows="3"></textarea>
+      </div>
+
       <button class="btn-primary btn-full" onclick="generateTest()">
         Generar test
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -113,78 +184,29 @@
     </div>
   </section>
 
+  <!-- SCREEN 4: LOADING -->
   <section id="screen-loading" class="screen">
     <div class="loading-content">
       <div class="loader-ring">
         <div class="ring-inner"></div>
-        <span class="loader-icon">&#9670;</span>
+        <span class="loader-icon">◆</span>
       </div>
       <h2 class="loading-title">Generando tu test...</h2>
       <p class="loading-subtitle" id="loadingSubtitle">Analizando el contenido</p>
       <div class="loading-steps">
         <div class="step" id="step1">Leyendo el material</div>
         <div class="step" id="step2">Extrayendo conceptos clave</div>
-        <div class="step" id="step3">Creando preguntas</div>
+        <div class="step" id="step3">Creando preguntas variadas</div>
         <div class="step" id="step4">Preparando tu test</div>
       </div>
     </div>
   </section>
 
-  <section id="screen-study" class="screen">
-    <nav class="navbar">
-      <div class="logo">
-        <span class="logo-icon">&#9670;</span>
-        <span class="logo-text">Practica tu <strong>Test</strong></span>
-      </div>
-      <button class="btn-primary" onclick="startTest()">
-        Empezar test
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-    </nav>
-    <div class="study-content">
-      <div class="study-topic" id="studyTopic"></div>
-      <h2 class="section-title">Repasa antes de empezar</h2>
-      <div class="study-card">
-        <h3 class="study-card-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          Puntos clave del tema
-        </h3>
-        <ul class="key-points" id="keyPoints"></ul>
-      </div>
-      <h3 class="methods-title">Metodos de estudio efectivos</h3>
-      <div class="methods-grid">
-        <div class="method-card">
-          <div class="method-icon">&#128260;</div>
-          <h4>Recuperacion Activa</h4>
-          <p>Cierra el material y escribe todo lo que recuerdas. Es mas efectivo que releer.</p>
-        </div>
-        <div class="method-card">
-          <div class="method-icon">&#128197;</div>
-          <h4>Repeticion Espaciada</h4>
-          <p>Repasa en intervalos: hoy, manana, en 3 dias, en 1 semana. Tu memoria lo agradece.</p>
-        </div>
-        <div class="method-card">
-          <div class="method-icon">&#128172;</div>
-          <h4>Tecnica Feynman</h4>
-          <p>Explica el concepto en voz alta como si se lo ensenaras a alguien que no sabe nada.</p>
-        </div>
-        <div class="method-card">
-          <div class="method-icon">&#127813;</div>
-          <h4>Metodo Pomodoro</h4>
-          <p>25 minutos de estudio intenso + 5 de descanso. Repite 4 veces y descansa 20 min.</p>
-        </div>
-      </div>
-      <button class="btn-primary btn-full" onclick="startTest()">
-        Empezar test
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-    </div>
-  </section>
-
+  <!-- SCREEN 5: TEST -->
   <section id="screen-test" class="screen">
     <nav class="navbar">
       <div class="logo">
-        <span class="logo-icon">&#9670;</span>
+        <span class="logo-icon">◆</span>
         <span class="logo-text">Practica tu <strong>Test</strong></span>
       </div>
       <div class="test-nav-right">
@@ -204,11 +226,12 @@
       <div class="topic-badge" id="topicBadge"></div>
       <div class="question-card" id="questionCard">
         <div class="question-number" id="questionNumber">Pregunta 1</div>
+        <div class="question-type-badge" id="questionTypeBadge" style="display:none"></div>
         <h3 class="question-text" id="questionText"></h3>
         <div class="options-list" id="optionsList"></div>
       </div>
       <div class="test-nav">
-        <button class="btn-ghost" id="prevBtn" onclick="prevQuestion()" style="visibility:hidden">&larr; Anterior</button>
+        <button class="btn-ghost" id="prevBtn" onclick="prevQuestion()" style="visibility:hidden">← Anterior</button>
         <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
           <span id="nextBtnText">Siguiente</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -217,10 +240,11 @@
     </div>
   </section>
 
+  <!-- SCREEN 6: RESULTS -->
   <section id="screen-results" class="screen">
     <nav class="navbar">
       <div class="logo">
-        <span class="logo-icon">&#9670;</span>
+        <span class="logo-icon">◆</span>
         <span class="logo-text">Practica tu <strong>Test</strong></span>
       </div>
       <button class="btn-ghost" onclick="resetApp()">Nuevo test</button>
@@ -238,8 +262,26 @@
           <span class="score-label">/ <span id="scoreTotalLabel">10</span></span>
         </div>
       </div>
-      <h2 class="result-title" id="resultTitle">Buen trabajo!</h2>
+      <h2 class="result-title" id="resultTitle">Bien hecho</h2>
       <p class="result-subtitle" id="resultSubtitle">Repasa las respuestas abajo.</p>
+
+      <div class="feedback-section" id="feedbackSection">
+        <div class="feedback-loading" id="feedbackLoading">
+          <div class="feedback-spinner"></div>
+          <span>Analizando tus resultados...</span>
+        </div>
+        <div class="feedback-card hidden" id="feedbackCard">
+          <div class="feedback-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            Análisis personalizado
+          </div>
+          <p class="feedback-summary" id="feedbackSummary"></p>
+          <div id="feedbackAreas"></div>
+          <div id="feedbackRecs"></div>
+          <p class="feedback-encouragement" id="feedbackEncouragement"></p>
+        </div>
+      </div>
+
       <div class="answers-review" id="answersReview"></div>
       <div class="results-actions">
         <button class="btn-ghost" onclick="retryTest()">Repetir test</button>
@@ -254,3 +296,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
